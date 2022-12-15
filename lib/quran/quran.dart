@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:islami/quran/sura_name_item.dart';
 import 'package:islami/theme_helper.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class Quran extends StatelessWidget {
   static String routeName='quran tap';
   List<String>suraName=["الفاتحه","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود"
@@ -21,13 +22,10 @@ class Quran extends StatelessWidget {
         Expanded(flex: 3,
             child
             : Image.asset('assets/images/qur2an_screen_logo.png')),
-        Divider(
-          thickness: 3,
-          color: ThemeHelper.primiary,
+        Divider(color: Theme.of(context).dividerTheme.color,thickness: 3,)
+          ,
+        Text(AppLocalizations.of(context)!.suraName,style: Theme.of(context).textTheme.bodyMedium,
         ),
-        Text('sura name',style: TextStyle(
-          fontWeight: FontWeight.bold,fontSize: 25,color: ThemeHelper.assest
-        ),),
         Expanded(flex: 7,
           child:
         ListView.builder(

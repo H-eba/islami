@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:islami/provider/setting_provider.dart';
 import 'package:islami/sura_details/sura_details_arrguments.dart';
 import 'package:islami/theme_helper.dart';
+import 'package:provider/provider.dart';
 class SuraDetails extends StatefulWidget {
  static String routeName='sura details';
 
@@ -18,21 +20,20 @@ class _SuraDetailsState extends State<SuraDetails> {
     var args=ModalRoute.of(context)!.settings.arguments as SuraDetailsArrguments;
     if (suraLines.isEmpty){
       readFile(args.suraFile);
-    }
 
+    }
+    SettingProvider provider=Provider.of(context);
     return
       Container(
-        decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage
-        ('assets/images/default_bg.png'),
-    fit:BoxFit.cover )
-    ),
-    child: Scaffold(
-    backgroundColor: Colors.transparent,
-    appBar: AppBar(title: (Text('${args.suraName}',style: TextStyle(
-    color: ThemeHelper.primiary
-    ,fontSize: 30,
-    fontWeight: FontWeight.bold,),)
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(provider.currentThem==ThemeMode.light?
+                  'assets/images/default_bg.png': 'assets/images/dark_bg.png'
+                  ),
+                  fit: BoxFit.cover)),
+   child: Scaffold(
+   backgroundColor: Colors.transparent,
+    appBar: AppBar(title: (Text('${args.suraName}',style: Theme.of(context).textTheme.titleMedium)
     ),
     centerTitle: true,
     backgroundColor: Colors.transparent,
@@ -40,14 +41,16 @@ class _SuraDetailsState extends State<SuraDetails> {
     body: ListView.builder(
          itemCount: suraLines.length,
         itemBuilder: (context,index){ ///
-      return Text(
-        '${suraLines[index]}{${index+1}}',
-        textAlign:TextAlign.center,
-        //textDirection:TextDecoration.rtl    ,
-        style: TextStyle(fontSize: 25 ,color: ThemeHelper.assest),);
+      return Padding(
+        padding: const EdgeInsets.all(15),
+        child: Text(
+          '${suraLines[index]}{${index+1}}',
+          textAlign:TextAlign.start,
+          //textDirection:TextDecoration.rtl,
+          style: Theme.of(context).textTheme.titleMedium,),
+      );
     }
     )
-    //Text(SuraDetailsArrguments.suraFiles),
     )
       );
   }

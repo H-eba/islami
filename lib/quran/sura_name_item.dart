@@ -16,8 +16,7 @@ SuraName(this.text,this.index);
      },
       child: Text(
         '$text',textAlign:TextAlign.center
-        ,style: TextStyle(fontSize: 25
-      ,fontWeight: FontWeight.bold,color: ThemeHelper.assest),),
+        ,style: Theme.of(context).textTheme.titleSmall),
     );
   }
 }
